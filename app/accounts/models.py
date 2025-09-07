@@ -22,7 +22,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
-    uuid = models.UUIDField(primary_key=True, default=uuid4, unique=True)
+    uuid = models.UUIDField(primary_key=True, default=uuid4, unique=True, editable=False)
     username = models.CharField(max_length=70, unique=True)
     email = models.EmailField()
     friends = models.ManyToManyField("self", blank=True, symmetrical=True)
@@ -32,7 +32,7 @@ class User(AbstractBaseUser):
     created = models.DateTimeField(auto_now_add=True)
     
     is_admin = models.BooleanField(default=False)
-    is_verificated = models.UUIDField(default=uuid, unique=True)
+    is_verificated = models.UUIDField(default=uuid4, unique=True)
     
     objects = UserManager()
     
