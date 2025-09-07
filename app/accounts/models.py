@@ -34,6 +34,7 @@ class User(AbstractBaseUser):
     
     is_admin = models.BooleanField(default=False)
     verification_code = models.UUIDField(default=uuid4, unique=True)
+    is_verificated = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
     
     objects = UserManager()
