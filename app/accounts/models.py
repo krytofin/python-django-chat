@@ -16,6 +16,7 @@ class UserManager(BaseUserManager):
     
     def create_superuser(self, username, email, password=None, **kwargs):
         kwargs.setdefault('is_admin', True)
+        kwargs.setdefault('is_active', True)
         user = self.create_user(username, email, password=password, **kwargs)
         user.save(using=self._db)
         return user
@@ -33,6 +34,7 @@ class User(AbstractBaseUser):
     
     is_admin = models.BooleanField(default=False)
     is_verificated = models.UUIDField(default=uuid4, unique=True)
+    is_active = models.BooleanField(default=True)
     
     objects = UserManager()
     
@@ -41,6 +43,12 @@ class User(AbstractBaseUser):
     
     def __str__(self):
         return f'{self.username} {self.email} {self.first_name} {self.last_name}'
+    
+    def has_perm(self, perm, obj=None):
+        return True
+    
+    def has_module_perms(self, app_label):
+        return True
 
     @property
     def is_staff(self):
