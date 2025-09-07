@@ -33,7 +33,7 @@ class User(AbstractBaseUser):
     created = models.DateTimeField(auto_now_add=True)
     
     is_admin = models.BooleanField(default=False)
-    is_verificated = models.UUIDField(default=uuid4, unique=True)
+    verification_code = models.UUIDField(default=uuid4, unique=True)
     is_active = models.BooleanField(default=True)
     
     objects = UserManager()
