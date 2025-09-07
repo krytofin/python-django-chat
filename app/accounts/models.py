@@ -1,6 +1,24 @@
 from uuid import uuid4
-from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.db import models
+
+
+class UserManager(BaseUserManager):
+    def create_user(self, username, email, password=None, **kwargs):
+        if not username:
+            raise ValueError("User must have an username")
+        if not email:
+            raise ValueError("User must have an email")
+        user:User = self.model(email=email, username=username, **kwargs)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+    
+    def create_superuser(self, username, email, password=None, **kwargs):
+        kwargs.setdefault('is_admin', True)
+        user = self.create_user(username, email, password=password, **kwargs)
+        user.save(using=self._db)
+        return user
 
 
 class User(AbstractBaseUser):
@@ -16,5 +34,12 @@ class User(AbstractBaseUser):
     is_admin = models.BooleanField(default=False)
     is_verificated = models.UUIDField(default=uuid, unique=True)
     
+    objects = UserManager()
+    
+    
     def __str__(self):
         return f'{self.username} {self.email} {self.first_name} {self.last_name}'
+
+    @property
+    def is_staff(self):
+        return self.is_admin
