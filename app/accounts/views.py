@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
@@ -20,4 +21,4 @@ def user_login_view(request:HttpRequest):
             form = LoginForm()
         return render(request, 'accounts/login.html', {'form':form})
     else:
-        return redirect()
+        return redirect(settings.LOGIN_REDIRECT_URL)
