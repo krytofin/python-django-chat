@@ -130,4 +130,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # set User model to my model
 AUTH_USER_MODEL= 'accounts.User'
-LOGIN_REDIRECT_URL = reverse_lazy('')
+LOGIN_REDIRECT_URL = reverse_lazy('chat:index_view')
