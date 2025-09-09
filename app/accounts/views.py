@@ -13,10 +13,13 @@ def user_login_view(request:HttpRequest):
             form = LoginForm(request.POST)
             if form.is_valid():
                 cleaned_data = form.cleaned_data
+                print(User.objects.filter(username=cleaned_data['username']))
                 if User.objects.filter(username=cleaned_data['username']).exists():
-                    user = authenticate(request, username=cleaned_data['username'])
+                    user = authenticate(request, username=cleaned_data['username'], password=cleaned_data['password'])
+                    print(user)
                     if user:
                         login(request, user)
+                        return redirect(settings.LOGIN_REDIRECT_URL)
         else:
             form = LoginForm()
         return render(request, 'accounts/login.html', {'form':form})
