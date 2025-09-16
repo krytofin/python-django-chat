@@ -136,3 +136,50 @@ AUTH_USER_MODEL= 'accounts.User'
 LOGIN_REDIRECT_URL = reverse_lazy('chat:index_view')
 
 ASGI_APPLICATION = "app.asgi.application"
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "[{asctime}] {levelname} {name}: {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",  # change to DEBUG for more detail
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": True,
+        },
+        "channels": {
+            "handlers": ["console"],
+            "level": "DEBUG",   # <--- this is the key
+            "propagate": False,
+        },
+        "daphne": {
+            "handlers": ["console"],
+            "level": "DEBUG",   # shows HTTP/WebSocket handshake
+            "propagate": False,
+        },
+    },
+}
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
