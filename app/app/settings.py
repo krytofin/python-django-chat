@@ -38,8 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'daphne',
     'django.contrib.staticfiles',
 
+    # Installed
+    
     # My apps
     'accounts',
     'chat',
@@ -131,3 +134,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # set User model to my model
 AUTH_USER_MODEL= 'accounts.User'
 LOGIN_REDIRECT_URL = reverse_lazy('chat:index_view')
+
+ASGI_APPLICATION = "app.asgi.application"
