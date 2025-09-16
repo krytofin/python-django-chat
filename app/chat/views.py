@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
 
-from accounts.models import User
+from chat.models import Group
 
 
 @login_required
@@ -13,8 +13,8 @@ def index_view(request: HttpRequest):
 @login_required
 def private_chat_view(request: HttpRequest, uuid):
     current_user = request.user
-    friend = User.objects.filter(uuid=uuid)
-    if (friend.count()) > 1 or (not friend) or (friend.first() not in current_user.friends.all()):
-        return redirect("chat:index_view")
+    group = Group.objects.filter(uuid=uuid)
+    if group.count() > 1 or not group or current_user not in group.first().users.all():
+        return redirect('chat:index_view')
     return render(request, 'chat/private_chat.html')
     
