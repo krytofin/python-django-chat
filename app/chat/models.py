@@ -6,8 +6,8 @@ from django.db import models
 class Group(models.Model):
     uuid = models.UUIDField(default=uuid4, unique=True)
     users = models.ManyToManyField(get_user_model())
-    messages = models.ManyToManyField('Message')
-    events = models.ManyToManyField('Event')
+    messages = models.ManyToManyField('Message', blank=True)
+    events = models.ManyToManyField('Event', blank=True)
     time_created = models.DateTimeField(auto_now_add=True)
     
     
