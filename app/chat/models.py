@@ -15,6 +15,8 @@ class Group(models.Model):
 class Message(models.Model):
     text = models.TextField()
     sent_time = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(get_user_model, on_delete=models.SET_NULL, null=True)
+    group = models.ManyToManyField(Group)
     
 class Event(models.Model):
     type = models.TextField()
