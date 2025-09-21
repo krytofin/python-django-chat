@@ -8,7 +8,7 @@ class PrivateMessageConsumer(WebsocketConsumer):
         print('something is going on')
         self.room_name = self.scope["url_route"]["kwargs"]["uuid"]
         self.room_group_name = f"chat_{self.room_name}"
-
+        self.user = self.scope['user'].uuid
         # Join room group
         async_to_sync(self.channel_layer.group_add)(
             self.room_group_name, self.channel_name
@@ -37,4 +37,4 @@ class PrivateMessageConsumer(WebsocketConsumer):
         message = event["message"]
 
         # Send message to WebSocket
-        self.send(text_data=json.dumps({"message": message}))
+        self.send(text_data=json.dumps({"message": message, 'user': str(self.user)}))
