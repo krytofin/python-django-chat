@@ -10,98 +10,25 @@
 </head>
 <body>
     <div class="container">
+        <input type="hidden" name="user_id" id="user_id" value="{{user.uuid}}">
         <div class="messages">
-            <div class="message">
-                <div class="user">you: </div>
-                <div class="message_container">
-                    Hello world Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem atque unde, possimus repudiandae ad necessitatibus!
+            {% for message in messages %}
+            {% if message.user == user %}
+                <div class="message right">
+                {% comment %} <div class="user">you: </div> {% endcomment %}
+                <div class="message_container right-c">
+                    {{message.text}}
                 </div>
+            {% else %}
+            <div class="message">
+                <div class="user">{{message.user.username|cut:"@"}}: </div>
+                <div class="message_container">
+                    {{message.text}}
+                </div>
+                {% endif %}
                 
             </div>
-            <div class="message">
-                <div class="user">you: </div>
-                <div class="message_container">
-                    Hello world Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem atque unde, possimus repudiandae ad necessitatibus!
-                </div>
-                
-            </div>
-            <div class="message">
-                <div class="user">you: </div>
-                <div class="message_container">
-                    Hello world Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem atque unde, possimus repudiandae ad necessitatibus!
-                </div>
-                
-            </div>
-            <div class="message">
-                <div class="user">you: </div>
-                <div class="message_container">
-                    Hello world Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem atque unde, possimus repudiandae ad necessitatibus!
-                </div>
-                
-            </div>
-            <div class="message">
-                <div class="user">you: </div>
-                <div class="message_container">
-                    Hello world Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem atque unde, possimus repudiandae ad necessitatibus!
-                </div>
-                
-            </div>
-            <div class="message">
-                <div class="user">you: </div>
-                <div class="message_container">
-                    Hello world Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem atque unde, possimus repudiandae ad necessitatibus!
-                </div>
-                
-            </div>
-            <div class="message">
-                <div class="user">you: </div>
-                <div class="message_container">
-                    Hello world Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem atque unde, possimus repudiandae ad necessitatibus!
-                </div>
-                
-            </div>
-            <div class="message">
-                <div class="user">you: </div>
-                <div class="message_container">
-                    Hello world Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem atque unde, possimus repudiandae ad necessitatibus!
-                </div>
-                
-            </div>
-            <div class="message">
-                <div class="user">you: </div>
-                <div class="message_container">
-                    Hello world Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem atque unde, possimus repudiandae ad necessitatibus!
-                </div>
-                
-            </div>
-            <div class="message">
-                <div class="user">you: </div>
-                <div class="message_container">
-                    Hello world Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem atque unde, possimus repudiandae ad necessitatibus!
-                </div>
-                
-            </div>
-            <div class="message">
-                <div class="user">you: </div>
-                <div class="message_container">
-                    Hello world Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem atque unde, possimus repudiandae ad necessitatibus!
-                </div>
-                
-            </div>
-            <div class="message">
-                <div class="user">you: </div>
-                <div class="message_container">
-                    Hello world Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem atque unde, possimus repudiandae ad necessitatibus!
-                </div>
-                
-            </div>
-            <div class="message">
-                <div class="user">you: </div>
-                <div class="message_container">
-                    Hello world Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem atque unde, possimus repudiandae ad necessitatibus!
-                </div>
-                
-            </div>
+            {% endfor %}
         </div>
         <div class="bottom_panel">
             <form action="">
